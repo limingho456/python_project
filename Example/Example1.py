@@ -18,12 +18,14 @@ end = dt.datetime(2018, 1, 1)
 #Read data from csv file
 df = pd.read_csv("0700.csv", parse_dates=True, index_col=0)
 #df = df.round(2)
+df['Average'] = (df['High'] + df['Low'] + df['Adj Close'])/3
 df['10MA'] = df['Adj Close'].rolling(window=10).mean()
 df['20MA'] = df['Adj Close'].rolling(window=20).mean()
 df['50MA'] = df['Adj Close'].rolling(window=50).mean()
 df['250MA'] = df['Adj Close'].rolling(window=250).mean()
-df['Lower'] = df['20MA'] - 2 * df['Adj Close'].rolling(window=20).std()
-df['Upper'] = df['20MA'] + 2 * df['Adj Close'].rolling(window=20).std()
+df['SD'] = df['Average'].rolling(window=20).std()
+df['Lower'] = df['20MA'] - 2 * df['SD']
+df['Upper'] = df['20MA'] + 2 * df['SD']
 print(df.tail(20))
 
 print("Program finish without error.")
