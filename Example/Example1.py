@@ -15,6 +15,7 @@ style.use("ggplot")
 start = dt.datetime(2004, 1, 1)
 end = dt.datetime(2018, 1, 1)
 #Get data from yahoo finance
+<<<<<<< HEAD
 #df = web.DataReader("^HSI", "yahoo", start, end)
 #df.to_csv("HSI.csv")
 #Read data from csv file
@@ -41,5 +42,24 @@ candlestick2_ohlc(ax1, df['Open'], df['High'], df['Low'], df['Adj Close'], width
 #ax1.plot(df.index, df['20MA'])
 #ax2.plot(df.index, df['Volume'])
 plt.show()
+=======
+#df = web.DataReader("0700.hk", "yahoo", start, end)
+#df.to_csv("0700.csv")
+
+#Read data from csv file
+df = pd.read_csv("0700.csv", parse_dates=True, index_col=0)
+df['Avg Price'] = (df['High'] + df['Low'] + df['Adj Close']) / 3
+df['10MA'] = df['Adj Close'].rolling(window=10).mean()
+df['20MA'] = df['Adj Close'].rolling(window=20).mean()
+df['50MA'] = df['Adj Close'].rolling(window=50).mean()
+df['250MA'] = df['Adj Close'].rolling(window=250).mean()
+df = df.round(2)
+
+df['SD'] = df['Avg Price'].rolling(window=20).std()
+df['Middle'] = df['Avg Price'].rolling(window=20).mean()
+df['Lower'] = df['Middle'] - 2 * df['SD']
+df['Upper'] = df['Middle'] + 2 * df['SD']
+print(df.tail(20))
+>>>>>>> 707a640465b2ef70f7260c48f745b712416b8129
 
 print("Program finish without error.")
