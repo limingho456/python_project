@@ -5,7 +5,6 @@ This is example
 
 import datetime as dt
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdate
 from matplotlib import style
 import pandas as pd
 import pandas_datareader.data as web
