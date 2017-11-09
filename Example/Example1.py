@@ -5,6 +5,7 @@ This is example
 
 import datetime as dt
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdate
 from matplotlib import style
 import pandas as pd
 import pandas_datareader.data as web
@@ -33,12 +34,11 @@ df = df.round(2)
 #print(df.tail(100))
 
 #Print chart
-ax1 = plt.subplot2grid((6,1), (0,0), rowspan=5, colspan=1)
-ax2 = plt.subplot2grid((6,1), (5,0), rowspan=1, colspan=1, sharex=ax1)
-candlestick2_ohlc(ax1, df['Open'], df['High'], df['Low'], df['Adj Close'], width=.6, colorup='g', colordown='r')
-#ax1.plot(df.index, df['Adj Close'])
-#ax1.plot(df.index, df['20MA'])
-#ax2.plot(df.index, df['Volume'])
+ax1 = plt.subplot2grid((6,1), (0,0), rowspan=5, colspan=2)
+ax2 = plt.subplot2grid((6,1), (5,0), rowspan=1, colspan=2, sharex=ax1)
+ax1.xaxis_date()
+candlestick2_ohlc(ax1, df['Open'], df['High'], df['Low'], df['Adj Close'], width=0.2, colorup='g', colordown='r', alpha=0.75)
+ax2.fill_between(df['Volume'])
 plt.show()
 
 print("Program finish without error.")
